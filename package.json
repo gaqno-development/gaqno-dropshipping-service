@@ -29,6 +29,7 @@
     "@nestjs/throttler": "^6.5.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "bullmq": "^5.34.8",
     "drizzle-orm": "^0.45.1",
     "mercadopago": "^2.12.0",
     "pg": "^8.11.3",
