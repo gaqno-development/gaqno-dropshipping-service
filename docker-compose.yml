@@ -1,0 +1,15 @@
+services:
+  gaqno-dropshipping-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4016:4016"
+    env_file:
+      - .env
+    networks:
+      - gaqno-network
+
+networks:
+  gaqno-network:
+    external: true
