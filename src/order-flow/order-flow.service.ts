@@ -30,7 +30,7 @@ export class OrderFlowService {
       action: "webhook_received",
       referenceId: mpPaymentId,
       requestPayload: { mpPaymentId },
-      responsePayload: paymentInfo as Record<string, unknown>,
+      responsePayload: paymentInfo as unknown as Record<string, unknown>,
       success: "true",
     });
 
