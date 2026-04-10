@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/orders/orders.service.ts</title>
+    <title>Code coverage report for src/auth/session.guard.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,27 +19,27 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/orders</a> orders.service.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/auth</a> session.guard.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -92,17 +92,10 @@
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -121,33 +114,49 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { Injectable, NotFoundException } from "@nestjs/common";</span>
-<span class="cstat-no" title="statement not covered" >import { eq, desc } from "drizzle-orm";</span>
-<span class="cstat-no" title="statement not covered" >import { DatabaseService } from "../database/db.service.js";</span>
-<span class="cstat-no" title="statement not covered" >import { orders } from "../database/schema.js";</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import {</span>
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from "@nestjs/common";
+import type { Request } from "express";
+import type { SessionContext } from "@gaqno-development/types";
+<span class="cstat-no" title="statement not covered" >import { SsoService } from "@gaqno-development/backcore/services/sso.service";</span>
+&nbsp;
+interface RequestWithSession extends Request {
+  session?: SessionContext;
+}
 &nbsp;
 @Injectable()
-export <span class="cstat-no" title="statement not covered" >class <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >OrdersService </span>{</span></span>
-<span class="fstat-no" title="function not covered" >  constructor(private readonly <span class="cstat-no" title="statement not covered" >d</span>b: D</span>atabaseService) {}
+export <span class="cstat-no" title="statement not covered" >class <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >SessionGuard </span>implements CanActivate {</span></span>
+<span class="fstat-no" title="function not covered" >  constructor(private readonly <span class="cstat-no" title="statement not covered" >s</span>soService: S</span>soService) {}
 &nbsp;
-<span class="fstat-no" title="function not covered" >  async </span>list() {
-<span class="cstat-no" title="statement not covered" >    return this.db</span>
-      .getDb()
-      .select()
-      .from(orders)
-      .orderBy(desc(orders.createdAt));
-  }
+<span class="fstat-no" title="function not covered" >  async </span>canActivate(context: ExecutionContext): Promise&lt;boolean&gt; {
+    const request = <span class="cstat-no" title="statement not covered" >context</span>
+      .switchToHttp()
+      .getRequest&lt;RequestWithSession&gt;();
 &nbsp;
-<span class="fstat-no" title="function not covered" >  async </span>getById(id: string) {
-    const [order] = <span class="cstat-no" title="statement not covered" >await this.db</span>
-      .getDb()
-      .select()
-      .from(orders)
-      .where(eq(orders.id, id))
-      .limit(1);
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (!order) <span class="cstat-no" title="statement not covered" >throw new NotFoundException("Pedido não encontrado");</span></span>
-<span class="cstat-no" title="statement not covered" >    return order;</span>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+      const session = <span class="cstat-no" title="statement not covered" >await this.ssoService.verify(request as Request);</span>
+<span class="cstat-no" title="statement not covered" >      request.session = session;</span>
+<span class="cstat-no" title="statement not covered" >      return true;</span>
+    } catch {
+<span class="cstat-no" title="statement not covered" >      throw new UnauthorizedException();</span>
+    }
   }
 }
 &nbsp;</pre></td></tr></table></pre>
