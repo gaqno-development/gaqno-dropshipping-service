@@ -53,7 +53,14 @@ export class MercadoPagoController {
       await this.orderFlow.handlePaymentNotification(dataId);
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : String(error);
-      this.logger.error(`Webhook processing error: ${message}`);
+      this.logger.error(`Webhook ds_orders error: ${message}`);
+    }
+
+    try {
+      await this.orderFlow.handleStorefrontPayment(dataId);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      this.logger.error(`Webhook sf_orders error: ${message}`);
     }
 
     return { received: true };

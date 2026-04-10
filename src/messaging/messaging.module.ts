@@ -9,7 +9,7 @@ import { ConfigService } from "@nestjs/config";
 import { Queue } from "bullmq";
 import { DatabaseModule } from "../database/db.module.js";
 
-export const ORDER_PROCESSING_QUEUE = "dropshipping:process-order";
+export const ORDER_PROCESSING_QUEUE = "dropshipping-process-order";
 
 function parseRedisConnection(url: string): {
   host: string;
