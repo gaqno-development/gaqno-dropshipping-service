@@ -8,10 +8,8 @@ import {
   Body,
   Param,
   Query,
-  UseGuards,
   HttpCode,
 } from "@nestjs/common";
-import { SessionGuard } from "../../auth/session.guard.js";
 import { AdminService } from "./admin.service.js";
 import {
   CreateCategoryDto,
@@ -24,7 +22,6 @@ import {
 } from "./dto/publish-product.dto.js";
 
 @Controller("admin")
-@UseGuards(SessionGuard)
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
