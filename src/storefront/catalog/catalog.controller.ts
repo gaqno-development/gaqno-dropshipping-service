@@ -6,7 +6,6 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { CatalogService } from "./catalog.service.js";
-import { ListProductsQueryDto } from "./dto/catalog-query.dto.js";
 
 @Controller("storefront")
 export class CatalogController {
@@ -39,13 +38,18 @@ export class CatalogController {
   }
 
   @Get("products")
-  async listProducts(@Query() query: ListProductsQueryDto) {
+  async listProducts(@Query() query: { page?: string; limit?: string; categoryId?: string; search?: string }) {
     return this.catalogService.listPublishedProducts({
       categoryId: query.categoryId,
       search: query.search,
-      page: query.page ?? 1,
-      limit: query.limit ?? 20,
+      page: Number(query.page) || 1,
+      limit: Math.min(100, Math.max(1, Number(query.limit) || 20)),
     });
+  }
+
+  @Get("products/sample")
+  async getSampleProducts() {
+    return this.catalogService.getSampleProducts();
   }
 
   @Get("products/:id")
