@@ -5,7 +5,7 @@ import {
   Query,
   NotFoundException,
 } from "@nestjs/common";
-import { CatalogService } from "./catalog.service.js";
+import { CatalogService, SampleProduct } from "./catalog.service.js";
 
 @Controller("storefront")
 export class CatalogController {

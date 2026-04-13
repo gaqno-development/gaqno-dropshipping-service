@@ -7,7 +7,7 @@ import {
   sfOrderItems,
 } from "../../database/schema.js";
 
-interface SampleProduct {
+export interface SampleProduct {
   id: string;
   customTitle: string;
   customDescription: string;
