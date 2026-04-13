@@ -1,5 +1,8 @@
 import { Module } from "@nestjs/common";
+import { APP_GUARD } from "@nestjs/core";
 import { ConfigModule } from "@nestjs/config";
+import { ThrottlerModule, ThrottlerGuard } from "@nestjs/throttler";
+import { GAQNO_THROTTLE_ONE_MINUTE } from "@gaqno-development/backcore";
 import { DatabaseModule } from "./database/db.module.js";
 import { MessagingModule } from "./messaging/messaging.module.js";
 import { HealthModule } from "./health/health.module.js";
@@ -17,6 +20,7 @@ import { OrdersModule } from "./orders/orders.module.js";
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, envFilePath: ".env" }) as any,
+    ThrottlerModule.forRoot([{ ...GAQNO_THROTTLE_ONE_MINUTE }]),
     DatabaseModule,
     MessagingModule,
     HealthModule,
@@ -31,5 +35,6 @@ import { OrdersModule } from "./orders/orders.module.js";
     CheckoutModule,
     AdminStorefrontModule,
   ],
+  providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 })
 export class AppModule {}
